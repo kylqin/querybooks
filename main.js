@@ -1,8 +1,13 @@
 const path = require('path');
+const config = require('./config');
+const recdir = require('./recdir');
+
 const fuzzy = require('./searchers/fuzzy');
 const simple = require('./searchers/simple');
-const recdir = require('./recdir');
-const config = require('./config');
+const lunr = require('./searchers/lunr');
+
+const pTerm = require('./presentations/term');
+
 
 
 // command line args
@@ -30,8 +35,7 @@ const booklist = createList();
 
 
 // const filtered = fuzzy.search(searchTerm, booklist);
-const filtered = simple.search(searchTerm, booklist);
+// const filtered = simple.search(searchTerm, booklist);
+const filtered = lunr.search(searchTerm, booklist);
 
-
-
-console.log(filtered.map(r => r.string).join('\n'));
+pTerm.p(filtered);
