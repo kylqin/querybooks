@@ -9,8 +9,12 @@ const lunr = require('lunr');
 exports.search = function (searchTerm, list) {
   const documents = list.map((el, idx) => {
     el.id = '' + idx;
+    el.oName = el.name.slice();
+    el.name = el.name.replace(/\./g, ' '); // 以.链接的多个单词背当做一个单词了
     return el;
   });
+
+  // console.log(documents.filter(doc => doc.name.match(/go/i)));
 
   const idx = lunr(function () {
     this.ref('id');
@@ -24,10 +28,12 @@ exports.search = function (searchTerm, list) {
 
   const result = idx.search(searchTerm);
 
+  // console.log(result);
+
   return result.map(el => {
     return {
       string: makeString(el, documents[el.ref]),
-      name: documents[el.ref].name,
+      name: documents[el.ref].oName,
       url: documents[el.ref].path
     };
   });
@@ -41,7 +47,7 @@ const options = {
 
 
 function makeString (item, original) {
-  const name = original.name;
+  const name = original.oName;
   const md = item.matchData.metadata;
   const positions = Object.keys(md).map(stem => {
     const ps = md[stem].name.position[0];
