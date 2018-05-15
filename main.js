@@ -11,7 +11,8 @@ const pTerm = require('./presentations/term');
 
 
 // command line args
-const args = process.argv.splice(2);
+const subCmd = process.argv[2];
+const args = process.argv.splice(3);
 
 const searchTerm = args.join(' ') || '';
 
@@ -34,8 +35,21 @@ function createList () {
 const booklist = createList();
 
 
+const subCmdTable = {
+  fuzzy,
+  f: fuzzy,
+  simple,
+  s: simple,
+  lunr,
+  l: lunr,
+
+  default: lunr
+};
+
+
 // const filtered = fuzzy.search(searchTerm, booklist);
 // const filtered = simple.search(searchTerm, booklist);
-const filtered = lunr.search(searchTerm, booklist);
+// const filtered = lunr.search(searchTerm, booklist);
+const filtered = (subCmdTable[subCmd] || subCmdTable.default).search(searchTerm, booklist);
 
 pTerm.p(filtered);
