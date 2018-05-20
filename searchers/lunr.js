@@ -11,6 +11,7 @@ exports.search = function (searchTerm, list) {
     el.id = '' + idx;
     el.oName = el.name.slice();
     el.name = el.name.replace(/\./g, ' '); // 以.链接的多个单词背当做一个单词了
+    el.name = el.name.replace(/_/g, ' '); // 以_链接的多个单词背当做一个单词了
     return el;
   });
 
