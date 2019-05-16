@@ -1,19 +1,17 @@
-const fs = require('fs');
-const path = require('path');
-
+const fs = require('fs')
+const path = require('path')
 
 const recdir = function (pathDir, action) {
-  const stats = fs.statSync(pathDir);
+  const stats = fs.statSync(pathDir)
   if (stats.isDirectory()) {
-    const contents = fs.readdirSync(pathDir);
+    const contents = fs.readdirSync(pathDir)
     // console.log(contents);
     for (const c of contents) {
-      recdir(path.join(pathDir, c), action);
+      recdir(path.join(pathDir, c), action)
     }
   } else {
-    action(pathDir);
+    action(pathDir)
   }
-};
+}
 
-module.exports = recdir;
-
+module.exports = recdir

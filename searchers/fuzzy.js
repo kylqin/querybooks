@@ -1,4 +1,4 @@
-const fuzzy = require('fuzzy');
+const fuzzy = require('fuzzy')
 
 /**
   * 返回搜索结果
@@ -11,8 +11,8 @@ exports.search = function (searchTerm, list) {
     // see: https://misc.flogisoft.com/bash/tip_colors_and_formatting
     pre: '\x1b[31m',
     post: '\x1b[0m',
-    extract: el => el.name,
-  };
+    extract: el => el.name
+  }
 
-  return fuzzy.filter(searchTerm, list, options);
-};
+  return fuzzy.filter(searchTerm, list, options)
+}

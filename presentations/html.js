@@ -1,7 +1,7 @@
 // booklistHTML += `<li><a href="file://${fileName}">${path.basename(fileName)}</a></li>\n`;
 
 function presentationHTML () {
-  let booklistHTML = '';
+  let booklistHTML = ''
   const html = `
 <html>
   <head>
@@ -13,6 +13,6 @@ function presentationHTML () {
     </ol>
   </body>
 </html>
-`;
-  return html;
+`
+  return html
 }
