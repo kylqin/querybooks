@@ -1,4 +1,5 @@
 const path = require('path')
+const os = require('os')
 const config = require('./config')
 const recdir = require('./recdir')
 
@@ -47,6 +48,9 @@ These are common \`bk\` sub commands used to search books with various search en
    fuzzy,  f    Search with fuzzy style
    lunr,   l    Search with lunr.js, a search engine is a bit like Solr
    simple, s    Search with exact match case insensitively
+
+Please modify the configuration file \`${os.homedir()}/.bkconf.json\` (created it if not
+existed), assigning the field \`booksdir\` to the path where your books located.
   `)
 }
 
@@ -65,7 +69,7 @@ function parseArgs () {
 function createList () {
   let booklist = []
 
-  recdir(config.pathBooks, function (fileName) {
+  recdir(config.booksdir, function (fileName) {
     if (fileName.endsWith('pdf') ||
         fileName.endsWith('PDF') ||
         fileName.endsWith('epub') ||
