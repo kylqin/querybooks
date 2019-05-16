@@ -1,15 +1,29 @@
 {
   "name": "querybooks",
   "version": "0.0.1",
-  "description": "query books",
-  "main": "recdir.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Query books by file names in local directory.",
+  "main": "main.js",
+  "bin": {
+    "bk": "bin/bk"
   },
-  "author": "",
-  "license": "ISC",
+  "scripts": {},
   "dependencies": {
     "fuzzy": "^0.1.3",
     "lunr": "^2.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qinxij/querybooks.git"
+  },
+  "keywords": [
+    "command",
+    "query",
+    "books"
+  ],
+  "author": "Qinxij Kyle <qinxij@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qinxij/querybooks/issues"
+  },
+  "homepage": "https://github.com/qinxij/querybooks#readme"
 }
