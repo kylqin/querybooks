@@ -2,17 +2,50 @@ const path = require('path')
 const config = require('./config')
 const recdir = require('./recdir')
 
+// searchers
 const fuzzy = require('./searchers/fuzzy')
 const simple = require('./searchers/simple')
 const lunr = require('./searchers/lunr')
 
+// presentation styles
 const pTerm = require('./presentations/term')
 
-// command line args
-const subCmd = process.argv[2]
-const args = process.argv.splice(3)
+const subCmdTable = {
+  fuzzy,
+  f: fuzzy,
+  simple,
+  s: simple,
+  lunr,
+  l: lunr,
 
-const searchTerm = args.join(' ') || ''
+  default: lunr
+}
+
+runApp()
+
+function runApp () {
+  const ARGS = parseArgs()
+  const booklist = createList()
+
+  // const filtered = fuzzy.search(searchTerm, booklist);
+  // const filtered = simple.search(searchTerm, booklist);
+  // const filtered = lunr.search(searchTerm, booklist);
+  const filtered = (subCmdTable[ARGS.subCmd] || subCmdTable.default).search(ARGS.searchTerm, booklist)
+
+  pTerm.p(filtered)
+}
+
+function parseArgs () {
+  // command line args
+  const subCmd = process.argv[2]
+  const args = process.argv.splice(3)
+  const searchTerm = args.join(' ') || ''
+
+  return {
+    subCmd,
+    searchTerm
+  }
+}
 
 function createList () {
   let booklist = []
@@ -32,23 +65,3 @@ function createList () {
 
   return booklist
 }
-
-const booklist = createList()
-
-const subCmdTable = {
-  fuzzy,
-  f: fuzzy,
-  simple,
-  s: simple,
-  lunr,
-  l: lunr,
-
-  default: lunr
-}
-
-// const filtered = fuzzy.search(searchTerm, booklist);
-// const filtered = simple.search(searchTerm, booklist);
-// const filtered = lunr.search(searchTerm, booklist);
-const filtered = (subCmdTable[subCmd] || subCmdTable.default).search(searchTerm, booklist)
-
-pTerm.p(filtered)
