@@ -22,8 +22,6 @@ const subCmdTable = {
   default: lunr
 }
 
-runApp()
-
 function runApp () {
   const ARGS = parseArgs()
   const booklist = createList()
@@ -83,4 +81,8 @@ function createList () {
   })
 
   return booklist
+}
+
+module.exports = {
+  run: runApp
 }

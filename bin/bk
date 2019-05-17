@@ -13,4 +13,4 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd  )"
 
 
-node $(dirname $DIR)/main.js $@
+node $(dirname $DIR)/index.js $@
