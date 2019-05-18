@@ -2,6 +2,7 @@ const path = require('path')
 const os = require('os')
 const config = require('./config')
 const recdir = require('./recdir')
+const pjson = require('./package.json')
 
 // searchers
 const fuzzy = require('./searchers/fuzzy')
@@ -29,6 +30,9 @@ function runApp () {
   if (ARGS.subCmd === '-h' || ARGS.subCmd === '--help') {
     return showHelp()
   }
+  if (ARGS.subCmd === '-v' || ARGS.subCmd === '--version') {
+    return console.log('v' + pjson.version)
+  }
   // const filtered = fuzzy.search(searchTerm, booklist);
   // const filtered = simple.search(searchTerm, booklist);
   // const filtered = lunr.search(searchTerm, booklist);
@@ -38,7 +42,7 @@ function runApp () {
 }
 
 function showHelp () {
-  console.log(`usage: bk [-h | --help]
+  console.log(`usage: bk [-h | --help | -v | --version]
        bk {fuzzy | f | lunr | l | simple | s} searchTerm
 
 These are common \`bk\` sub commands used to search books with various search engines:
