@@ -72,11 +72,10 @@ function createList () {
   let booklist = []
 
   recdir(config.booksdir, function (fileName) {
-    if (fileName.endsWith('pdf') ||
-        fileName.endsWith('PDF') ||
-        fileName.endsWith('epub') ||
-        fileName.endsWith('EPUB')
-    ) {
+    const splits = fileName.split('.')
+    const fileFormat = splits[splits.length - 1]
+
+    if (config.bookformats.indexOf(fileFormat) !== -1) {
       booklist.push({
         name: path.basename(fileName),
         path: `file://${fileName}`

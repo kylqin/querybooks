@@ -16,7 +16,7 @@ Before you use it to search books, you need config the path your books are locat
 ```json
 {
     "booksdir": "/Users/kylqin/Documents/books",
-    "bookformat": "pdf,epub,mobi"
+    "bookformats": ["pdf", "epub" ,"mobi"]
 }
 ```
 
