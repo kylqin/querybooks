@@ -1,7 +1,7 @@
 QueryBooks
 ----
 
-A command line tool to search books in local directory by file names.
+`bk` is a command line tool to search books in local directory by file name.
 
 ## Installation
 
@@ -9,9 +9,9 @@ A command line tool to search books in local directory by file names.
 $ [sudo] npm install -g querybooks
 ```
 
-## Usage
+## Setup
 
-Before you use it to search books, you need config the path your books are located. Open the user configuration file `$HOME/.bkconf.json` and modify the field `booksdir`. Here is an example user configuration file:
+Before using `bk`, you have to config your books directory. Open the user configuration file `$HOME/.bkconf.json` and add the field `booksdir`. Here is an example:
 
 ```json
 {
@@ -20,7 +20,9 @@ Before you use it to search books, you need config the path your books are locat
 }
 ```
 
-Execute following comamnd get the help about the command line tool `bk`:
+## Usage
+
+Execute following command to get the usage:
 
 ```sh
 $ bk --help
@@ -39,7 +41,7 @@ existed), assigning the field `booksdir` to the path where your books located.
 
 ## Screenshots
 
-Open the book file by click the blue block with holding Command (for MacOS) or Ctrl ( for Linux) key.
+Note that you can open the book by clicking the blue block with holding Command (for MacOS) or Ctrl ( for Linux) key.
 <br/>
 <br/>
 ![](https://github.com/qinxij/querybooks/blob/master/screenshots/bk-screenshots01.png?raw=true)
