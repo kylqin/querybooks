@@ -25,7 +25,6 @@ const subCmdTable = {
 
 function runApp () {
   const ARGS = parseArgs()
-  const booklist = createList()
 
   if (ARGS.subCmd === '-h' || ARGS.subCmd === '--help') {
     return showHelp()
@@ -33,6 +32,8 @@ function runApp () {
   if (ARGS.subCmd === '-v' || ARGS.subCmd === '--version') {
     return console.log('v' + pjson.version)
   }
+
+  const booklist = createList()
   // const filtered = fuzzy.search(searchTerm, booklist);
   // const filtered = simple.search(searchTerm, booklist);
   // const filtered = lunr.search(searchTerm, booklist);
@@ -84,7 +85,7 @@ function createList () {
       }
     })
   } catch (e) {
-    console.log(`\x1b[31mThe directory \`${config.booksdir}\` dose not exist.\x1b[0m\``)
+    console.log(`\x1b[31mThe directory \`${config.booksdir}\` dose not exist.\x1b[0m`)
 
     // Exit directly
     process.exit(1)
