@@ -39,5 +39,13 @@ existed), assigning the field `booksdir` to the path where your books located.
 
 ## Screenshots
 
-![]()
-![]()
+Open the book file by click the blue block with holding Command (for MacOS) or Ctrl ( for Linux) key.
+<br/>
+<br/>
+![](https://github.com/qinxij/querybooks/blob/master/screenshots/bk-screenshots01.png?raw=true)
+<br/>
+<br/>
+![](https://github.com/qinxij/querybooks/blob/master/screenshots/bk-screenshots02.png?raw=true)
+
+## License
+MIT
