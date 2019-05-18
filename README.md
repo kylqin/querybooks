@@ -20,7 +20,7 @@ Before you use it to search books, you need config the path your books are locat
 }
 ```
 
-Execute following comamnd the get help about the command line tool `bk`:
+Execute following comamnd get the help about the command line tool `bk`:
 
 ```sh
 $ bk --help
