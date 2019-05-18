@@ -1,6 +1,6 @@
 {
   "name": "querybooks",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Query books by file names in local directory.",
   "main": "index.js",
   "bin": {

@@ -71,19 +71,26 @@ function parseArgs () {
 function createList () {
   let booklist = []
 
-  recdir(config.booksdir, function (fileName) {
-    const splits = fileName.split('.')
-    const fileFormat = splits[splits.length - 1]
+  try {
+    recdir(config.booksdir, function (fileName) {
+      const splits = fileName.split('.')
+      const fileFormat = splits[splits.length - 1]
 
-    if (config.bookformats.indexOf(fileFormat) !== -1) {
-      booklist.push({
-        name: path.basename(fileName),
-        path: `file://${fileName}`
-      })
-    }
-  })
+      if (config.bookformats.indexOf(fileFormat) !== -1) {
+        booklist.push({
+          name: path.basename(fileName),
+          path: `file://${fileName}`
+        })
+      }
+    })
+  } catch (e) {
+    console.log(`\x1b[31mThe directory \`${config.booksdir}\` dose not exist.\x1b[0m\``)
 
-  return booklist
+    // Exit directly
+    process.exit(1)
+  }
+
+return booklist
 }
 
 module.exports = {
