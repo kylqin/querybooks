@@ -85,7 +85,7 @@ function createList () {
       }
     })
   } catch (e) {
-    console.log(`\x1b[31mThe directory \`${config.booksdir}\` dose not exist.\x1b[0m`)
+    console.log(`The bookdir directory \`\x1b[31m${config.booksdir}\x1b[0m\` dose not exist. Please config it in \`\x1b[31m${os.homedir()}/.bkconf.json.\x1b[0m\``)
 
     // Exit directly
     process.exit(1)
