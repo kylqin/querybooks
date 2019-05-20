@@ -37,23 +37,36 @@ function runApp () {
   // const filtered = fuzzy.search(searchTerm, booklist);
   // const filtered = simple.search(searchTerm, booklist);
   // const filtered = lunr.search(searchTerm, booklist);
-  const filtered = (subCmdTable[ARGS.subCmd] || subCmdTable.default).search(ARGS.searchTerm, booklist)
+  let filtered
+  if (subCmdTable[ARGS.subCmd]) {
+    filtered = subCmdTable[ARGS.subCmd].search(ARGS.searchTerm, booklist)
+  } else {
+    const searchTerm = ARGS.subCmd
+    filtered = subCmdTable['simple'].search(searchTerm, booklist)
+    const filteredLunr = subCmdTable['lunr'].search(searchTerm, booklist)
+    filtered = mergeResult(filtered, filteredLunr)
+  }
 
   pTerm.p(filtered)
 }
 
 function showHelp () {
-  console.log(`usage: bk [-h | --help | -v | --version]
-       bk {fuzzy | f | lunr | l | simple | s} searchTerm
+  console.log(`Usage: bk {-h | --help | -v | --version}
+       bk [fuzzy | f | lunr | l | simple | s] searchTerm
 
-These are common \`bk\` sub commands used to search books with various search engines:
+Options:
+   --help, -h      Show this infomation
+   --version, -v   Show version
 
-   fuzzy,  f    Search with fuzzy style
-   lunr,   l    Search with lunr.js, a search engine is a bit like Solr
-   simple, s    Search with exact match case insensitively
+These are common sub commands used to search books with various search engines:
+
+   fuzzy,  f       Search with fuzzy style
+   lunr,   l       Search with lunr.js, a search engine which is like Solr
+   simple, s       Search with exact match case insensitively
+   <searchTerm>    Same search with both simple and lunr sub commands
 
 Please modify the configuration file \`${os.homedir()}/.bkconf.json\` (created it if not
-existed), assigning the field \`booksdir\` to the path where your books located.
+existed), assigning the field \`booksdir\` the path where your books located.
   `)
 }
 
@@ -96,4 +109,18 @@ return booklist
 
 module.exports = {
   run: runApp
+}
+
+function mergeResult (listA, listB) {
+  const existsInA = {}
+  for (let e in listA) {
+    existsInA[e.url] = true
+  }
+  const result = listA.slice()
+  for (let e in listB) {
+    if (!existsInA[e.url]) {
+      result.push(e)
+    }
+  }
+  return result
 }
