@@ -1,5 +1,6 @@
 const fs = require('fs')
 const os = require('os')
+const MSG = require('./showMessage')
 
 const homeDir = os.homedir()
 const userConfigFilePath = `${homeDir}/.bkconf.json`
@@ -7,9 +8,10 @@ let config
 try {
   const configStr = fs.readFileSync(userConfigFilePath)
   config = configStr && JSON.parse(configStr)
+  config.userConfigFilePath = userConfigFilePath
+  config.homeDir = homeDir
 } catch (e) {
-  console.log(`Please modify the configuration file \`\x1b[31m${userConfigFilePath}\x1b[0m\`(created it if not
-existed), assigning field \`\x1b[31mbooksdir\x1b[0m\` the path where your books located.`)
+  MSG.show(MSG.NAME.USER_CONF_INVALID, { userConfigFilePath })
 
   // Exit directly
   process.exit(1)

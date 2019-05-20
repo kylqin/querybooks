@@ -3,6 +3,7 @@ const os = require('os')
 const config = require('./config')
 const recdir = require('./recdir')
 const pjson = require('./package.json')
+const MSG = require('./showMessage')
 
 // searchers
 const fuzzy = require('./searchers/fuzzy')
@@ -30,7 +31,7 @@ function runApp () {
     return showHelp()
   }
   if (ARGS.subCmd === '-v' || ARGS.subCmd === '--version') {
-    return console.log('v' + pjson.version)
+    return MSG.show(MSG.NAME.VERSION, { version: pjson.version })
   }
 
   const booklist = createList()
@@ -51,23 +52,7 @@ function runApp () {
 }
 
 function showHelp () {
-  console.log(`Usage: bk {-h | --help | -v | --version}
-       bk [fuzzy | f | lunr | l | simple | s] searchTerm
-
-Options:
-   --help, -h      Show this infomation
-   --version, -v   Show version
-
-These are common sub commands used to search books with various search engines:
-
-   fuzzy,  f       Search with fuzzy style
-   lunr,   l       Search with lunr.js, a search engine which is like Solr
-   simple, s       Search with exact match case insensitively
-   <searchTerm>    Same search with both simple and lunr sub commands
-
-Please modify the configuration file \`${os.homedir()}/.bkconf.json\` (created it if not
-existed), assigning the field \`booksdir\` the path where your books located.
-  `)
+  MSG.showMsg(MSG.MSGNAME.HELP, { userConfigFilePath: config.userConfigFilePath })
 }
 
 function parseArgs () {
@@ -83,14 +68,21 @@ function parseArgs () {
 }
 
 function createList () {
-  let booklist = []
+  const booklist = []
+  const booksdir = config.booksdir
+  const bookformats = (
+      !config.bookformats ||
+      typeof config.bookformats !== 'array' ||
+      config.bookformats.length === 0
+    ) ? ["pdf", "epub", "mobi"] :
+    config.bookformats
 
   try {
-    recdir(config.booksdir, function (fileName) {
+    recdir(booksdir, function (fileName) {
       const splits = fileName.split('.')
       const fileFormat = splits[splits.length - 1]
 
-      if (config.bookformats.indexOf(fileFormat) !== -1) {
+      if (bookformats.indexOf(fileFormat) !== -1) {
         booklist.push({
           name: path.basename(fileName),
           path: `file://${fileName}`
@@ -98,17 +90,17 @@ function createList () {
       }
     })
   } catch (e) {
-    console.log(`The bookdir directory \`\x1b[31m${config.booksdir}\x1b[0m\` dose not exist. Please config it in \`\x1b[31m${os.homedir()}/.bkconf.json.\x1b[0m\``)
+    if (!booksdir) {
+      MSG.showMsg(MSG.MSGNAME.USER_CONF_INVALID, { userConfigFilePath: config.userConfigFilePath })
+    } else {
+      MSG.showMsg(MSG.MSGNAME.BOOKSDIR_NOT_EXIST, { booksdir, userConfigFilePath: config.userConfigFilePath })
+    }
 
     // Exit directly
     process.exit(1)
   }
 
-return booklist
-}
-
-module.exports = {
-  run: runApp
+  return booklist
 }
 
 function mergeResult (listA, listB) {
@@ -123,4 +115,8 @@ function mergeResult (listA, listB) {
     }
   }
   return result
+}
+
+module.exports = {
+  run: runApp
 }
