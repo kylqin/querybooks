@@ -27,7 +27,7 @@ const subCmdTable = {
 function runApp () {
   const ARGS = parseArgs()
 
-  if (ARGS.subCmd === '-h' || ARGS.subCmd === '--help') {
+  if (!ARGS.subCmd || ARGS.subCmd === '-h' || ARGS.subCmd === '--help') {
     return showHelp()
   }
   if (ARGS.subCmd === '-v' || ARGS.subCmd === '--version') {
@@ -52,7 +52,7 @@ function runApp () {
 }
 
 function showHelp () {
-  MSG.showMsg(MSG.MSGNAME.HELP, { userConfigFilePath: config.userConfigFilePath })
+  MSG.show(MSG.NAME.HELP, { userConfigFilePath: config.userConfigFilePath })
 }
 
 function parseArgs () {
@@ -91,9 +91,9 @@ function createList () {
     })
   } catch (e) {
     if (!booksdir) {
-      MSG.showMsg(MSG.MSGNAME.USER_CONF_INVALID, { userConfigFilePath: config.userConfigFilePath })
+      MSG.show(MSG.NAME.USER_CONF_INVALID, { userConfigFilePath: config.userConfigFilePath })
     } else {
-      MSG.showMsg(MSG.MSGNAME.BOOKSDIR_NOT_EXIST, { booksdir, userConfigFilePath: config.userConfigFilePath })
+      MSG.show(MSG.NAME.BOOKSDIR_NOT_EXIST, { booksdir, userConfigFilePath: config.userConfigFilePath })
     }
 
     // Exit directly
