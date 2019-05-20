@@ -53,6 +53,9 @@ Note that you can open the book by clicking the blue block with holding Command 
 <br/>
 <br/>
 ![](https://github.com/qinxij/querybooks/blob/master/screenshots/bk-screenshots02.png?raw=true)
+<br/>
+<br/>
+![](https://github.com/qinxij/querybooks/blob/master/screenshots/bk-screenshots03.jpg?raw=true)
 
 ## License
 MIT
