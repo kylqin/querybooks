@@ -1,9 +1,9 @@
 const fuzzy = require('fuzzy')
+const Utils = require('../utils')
 
 const options = {
-  // see: https://misc.flogisoft.com/bash/tip_colors_and_formatting
-  pre: '\x1b[31m',
-  post: '\x1b[0m',
+  pre: Utils.color.NAME.Red,
+  post: Utils.color.NAME.End,
   extract: el => el.name
 }
 

@@ -1,4 +1,5 @@
 const lunr = require('lunr')
+const Utils = require('../utils')
 
 /**
  * 返回搜索结果
@@ -41,9 +42,8 @@ exports.search = function (searchTerm, list) {
 }
 
 const options = {
-  // see: https://misc.flogisoft.com/bash/tip_colors_and_formatting
-  pre: '\x1b[31m',
-  post: '\x1b[0m'
+  pre: Utils.color.NAME.Red,
+  post: Utils.color.NAME.End,
 }
 
 function makeString (item, original) {

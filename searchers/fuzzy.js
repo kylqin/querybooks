@@ -1,4 +1,5 @@
 const fuzzy = require('fuzzy')
+const Utils = require('../utils')
 
 /**
   * 返回搜索结果
@@ -8,11 +9,10 @@ const fuzzy = require('fuzzy')
   */
 exports.search = function (searchTerm, list) {
   const options = {
-    // see: https://misc.flogisoft.com/bash/tip_colors_and_formatting
-    pre: '\x1b[31m',
-    post: '\x1b[0m',
+    pre: Utils.color.NAME.Red,
+    post: Utils.color.NAME.End,
     extract: el => el.name
   }
 
-  return fuzzy.filter(searchTerm, list, options)
+  return fuzzy.filter(searchTerm, list, options).map(item => ({ ...item, url: item.original.path }))
 }

@@ -1,3 +1,7 @@
+const Utils = require('./utils')
+
+const { red, green } = Utils.color
+
 const NAME = {
   HELP: 'HELP',
   VERSION: 'VERSION',
@@ -9,17 +13,17 @@ const NAME = {
 }
 
 const MSG = {
-  [NAME.USER_CONF_INVALID]: (args) => `Please modify the configuration file \`\x1b[31m${args.userConfigFilePath}\x1b[0m\`(created it if not
-existed), assigning field \`\x1b[31mbooksdir\x1b[0m\` the path where your books located.`,
+  [NAME.USER_CONF_INVALID]: (args) => `Please modify the configuration file \`${red(args.userConfigFilePath)}\`(created it if not
+existed), assigning field \`${red('booksdir')}\` the path where your books located.`,
 
-  [NAME.BOOKSDIR_NOT_EXIST]: (args) => `The bookdir directory \`\x1b[31m${args.booksdir}\x1b[0m\` dose not exist. Please config it in \`\x1b[31m${args.userConfigFilePath}.\x1b[0m\``,
+  [NAME.BOOKSDIR_NOT_EXIST]: (args) => `The bookdir directory \`\${red(args.booksdir)}\` dose not exist. Please config it in \`${red(args.userConfigFilePath)}\`.`,
 
-  [NAME.USER_CONF_COLLECTFROM_INVALIED]: (args) => `Please modify the configuration file \`\x1b[31m${args.userConfigFilePath}\x1b[0m\`(created it if not
-existed), assigning field \`\x1b[31collectfrom\x1b[0m\` the path where books collected from.`,
+  [NAME.USER_CONF_COLLECTFROM_INVALIED]: (args) => `Please modify the configuration file \`${red(args.userConfigFilePath)}\`(created it if not
+existed), assigning field \`${red('collectfrom')}\` the path where books collected from.`,
 
-  [NAME.COLLECTFROM_NOT_EXIST]: (args) => `The books collect from directory \`\x1b[31m${args.collectfromDir}\x1b[0m\` dose not exist. Please config it in \`\x1b[31m${args.userConfigFilePath}.\x1b[0m\``,
+  [NAME.COLLECTFROM_NOT_EXIST]: (args) => `The books collect from directory \`${red(args.collectfromDir)}\` dose not exist. Please config it in \`${red(args.userConfigFilePath)}\`.`,
 
-  [NAME.MOVE_BOOK]: args => ` ✔ ${args.fileName}`,
+  [NAME.MOVE_BOOK]: args => ` ${green('✔')} ${args.fileName}`,
 
   [NAME.HELP]: (args) => `Usage: bk {-h | --help | -v | --version}
        bk [fuzzy | f | lunr | l | simple | s] searchTerm
