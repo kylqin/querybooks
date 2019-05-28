@@ -38,6 +38,7 @@ These are common sub commands used to search books with various search engines:
    fuzzy,  f       Search with fuzzy style
    lunr,   l       Search with lunr.js, a search engine which is like Solr
    simple, s       Search with exact match case insensitively
+   collect,c       Collect books from collectfrom directories to booksdir
    <searchTerm>    Same search with both simple and lunr sub commands
 
 Please modify the configuration file `/Users/timber/.bkconf.json` (created it if not
