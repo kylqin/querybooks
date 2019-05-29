@@ -67,7 +67,7 @@ function runApp () {
     const searchTerm = ARGS.subCmd
     filtered = subCmdTable['simple'].search(searchTerm, booklist)
     const filteredLunr = subCmdTable['lunr'].search(searchTerm, booklist)
-    filtered = mergeResult(filtered, filteredLunr)
+    filtered = mergeResult(filteredLunr, filtered)
   }
 
   pTerm.p(filtered)
@@ -115,11 +115,11 @@ function createList () {
 
 function mergeResult (listA, listB) {
   const existsInA = {}
-  for (let e in listA) {
+  for (let e of listA) {
     existsInA[e.url] = true
   }
   const result = listA.slice()
-  for (let e in listB) {
+  for (let e of listB) {
     if (!existsInA[e.url]) {
       result.push(e)
     }
