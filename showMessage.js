@@ -10,13 +10,14 @@ const NAME = {
   USER_CONF_COLLECTFROM_INVALIED: 'USER_CONF_COLLECTFROM_INVALIED',
   COLLECTFROM_NOT_EXIST: 'COLLECTFROM_NOT_EXIST',
   MOVE_BOOK: 'MOVE_BOOK',
+  MOVE_BOOK_FAIL: 'MOVE_BOOK_FAIL',
 }
 
 const MSG = {
   [NAME.USER_CONF_INVALID]: (args) => `Please modify the configuration file \`${red(args.userConfigFilePath)}\`(created it if not
 existed), assigning field \`${red('booksdir')}\` the path where your books located.`,
 
-  [NAME.BOOKSDIR_NOT_EXIST]: (args) => `The bookdir directory \`\${red(args.booksdir)}\` dose not exist. Please config it in \`${red(args.userConfigFilePath)}\`.`,
+  [NAME.BOOKSDIR_NOT_EXIST]: (args) => `The bookdir directory \`${red(args.booksdir)}\` dose not exist. Please config it in \`${red(args.userConfigFilePath)}\`.`,
 
   [NAME.USER_CONF_COLLECTFROM_INVALIED]: (args) => `Please modify the configuration file \`${red(args.userConfigFilePath)}\`(created it if not
 existed), assigning field \`${red('collectfrom')}\` the path where books collected from.`,
@@ -24,6 +25,8 @@ existed), assigning field \`${red('collectfrom')}\` the path where books collect
   [NAME.COLLECTFROM_NOT_EXIST]: (args) => `The books collect from directory \`${red(args.collectfromDir)}\` dose not exist. Please config it in \`${red(args.userConfigFilePath)}\`.`,
 
   [NAME.MOVE_BOOK]: args => ` ${green('✔')} ${args.fileName}`,
+
+  [NAME.MOVE_BOOK_FAIL]: args => ` ${red('✘')} ${args.fileName} [${red('Already exists')}]`,
 
   [NAME.HELP]: (args) => `Usage: bk {-h | --help | -v | --version}
        bk [fuzzy | f | lunr | l | simple | s] searchTerm

@@ -2,7 +2,8 @@ const fs = require('fs')
 
 // see: https://misc.flogisoft.com/bash/tip_colors_and_formatting
 const CL = {
-  _Lightblue: '\x1b[104m',
+  // _Lightblue: '\x1b[104m',
+  _Lightblue: '\x1b[34m\x1b[1m',
   Darkgray: '\x1b[90m',
   Red: '\x1b[31m',
   Blue: '\x1b[34m',

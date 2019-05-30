@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const os = require('os')
 const child_process = require('child_process')
 const config = require('./config')
@@ -12,6 +13,7 @@ const fuzzy = require('./searchers/fuzzy')
 const simple = require('./searchers/simple')
 const lunr = require('./searchers/lunr')
 
+const { COPYFILE_EXCL } = fs.constants
 // presentation styles
 const pTerm = require('./presentations/term')
 
@@ -67,7 +69,7 @@ function runApp () {
     const searchTerm = ARGS.subCmd
     filtered = subCmdTable['simple'].search(searchTerm, booklist)
     const filteredLunr = subCmdTable['lunr'].search(searchTerm, booklist)
-    filtered = mergeResult(filtered, filteredLunr)
+    filtered = mergeResult(filteredLunr, filtered)
   }
 
   pTerm.p(filtered)
@@ -115,11 +117,11 @@ function createList () {
 
 function mergeResult (listA, listB) {
   const existsInA = {}
-  for (let e in listA) {
+  for (let e of listA) {
     existsInA[e.url] = true
   }
   const result = listA.slice()
-  for (let e in listB) {
+  for (let e of listB) {
     if (!existsInA[e.url]) {
       result.push(e)
     }
@@ -137,7 +139,15 @@ function moveBooksFromTo () {
     try {
       recdir(collectfrom[i], function (fileName) {
         if (isBook(fileName)) {
-          child_process.execSync(`mv "${fileName}" "${booksdir}"`)
+          try {
+            fs.copyFileSync(fileName, path.join(booksdir, path.basename(fileName)), COPYFILE_EXCL)
+            child_process.execSync(`rm "${fileName}"`)
+          } catch (e) {
+            // console.log(e)
+            MSG.show(MSG.NAME.MOVE_BOOK_FAIL, { fileName })
+            return
+          }
+          // child_process.execSync(`yes n |mv -i "${fileName}" "${booksdir}"`)
           MSG.show(MSG.NAME.MOVE_BOOK, { fileName })
         }
       })
