@@ -13,17 +13,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qinxij/querybooks.git"
+    "url": "git+https://github.com/kylqin/querybooks.git"
   },
   "keywords": [
     "command",
     "query",
     "books"
   ],
-  "author": "Kyle Qin <qinxij@163.com>",
+  "author": "Kyle Qin <kylqin@outlook.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/qinxij/querybooks/issues"
+    "url": "https://github.com/kylqin/querybooks/issues"
   },
-  "homepage": "https://github.com/qinxij/querybooks#readme"
+  "homepage": "https://github.com/kylqin/querybooks#readme"
 }
