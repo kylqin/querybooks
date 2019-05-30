@@ -1,5 +1,39 @@
 const fs = require('fs')
 
+/*
+ * Padding string `length` with char `padWithChar` on left/right side to fit length `length`.
+ * @length Number
+ * @content except String, or Nubmer
+ * @padWithChar Char
+ * @return String
+ * Examples:
+ *   pad(4, 'ho', '-')  => '--ho'
+ *   pad('ho', 4, '-')  => 'ho--'
+ *   pad('hoo', 2, '-') => 'hoo'
+ */
+const pad = (length, content, padWithChar = ' ') => {
+    let len = length
+    let ctt = String(content)
+    let left = true
+    let padWithStr = ''
+
+    if (typeof length !== 'number') {
+        len = content
+        ctt = String(length)
+        left = false
+    }
+
+    if (ctt.length >= len) {
+        return ctt
+    }
+
+    for (let i = ctt.length; i < len; ++i) {
+        padWithStr += padWithChar
+    }
+
+    return left ? `${padWithStr}${ctt}` : `${ctt}${padWithStr}`
+}
+
 // see: https://misc.flogisoft.com/bash/tip_colors_and_formatting
 const CL = {
   // _Lightblue: '\x1b[104m',
@@ -29,6 +63,6 @@ module.exports = {
     green: str => `${CL.Green}${str}${CL.End}`,
     darkgray: str => `${CL.Darkgray}${str}${CL.End}`,
     _lightblue: str => `${CL._Lightblue}${str}${CL.End}`
-  }
-
+  },
+  pad,
 }

@@ -15,7 +15,8 @@ const lunr = require('./searchers/lunr')
 
 const { COPYFILE_EXCL } = fs.constants
 // presentation styles
-const pTerm = require('./presentations/term')
+// const pTerm = require('./presentations/term')
+const pBlessed = require('./presentations/blessed')
 
 const subCmdTable = {
   fuzzy,
@@ -72,7 +73,8 @@ function runApp () {
     filtered = mergeResult(filteredLunr, filtered)
   }
 
-  pTerm.p(filtered)
+  // pTerm.p(filtered)
+  pBlessed.p(filtered)
 }
 
 function showHelp () {
